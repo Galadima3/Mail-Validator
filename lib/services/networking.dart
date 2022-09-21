@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart';
-import 'package:mail_validator/constants.dart';
-import 'package:mail_validator/models/email.dart';
+
 
 class ApiService{
   Future getMailInfo(String email) async{

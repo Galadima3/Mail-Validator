@@ -14,16 +14,15 @@ class ResultPage extends StatefulWidget {
 class _ResultPageState extends State<ResultPage> {
   var returnedData;
 
-  EmailData(String email) async {
+  emailData(String email) async {
     returnedData = await ApiService().getMailInfo(widget.emailAddress);
-    print(returnedData);
+
     return returnedData;
   }
 
   @override
   void initState() {
-    // TODO: implement initState
-    EmailData(widget.emailAddress);
+    emailData(widget.emailAddress);
     super.initState();
   }
 
@@ -36,18 +35,17 @@ class _ResultPageState extends State<ResultPage> {
             children: [
               Center(
                 child: FutureBuilder(
-                  future: EmailData(widget.emailAddress),
+                  future: emailData(widget.emailAddress),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const CircularProgressIndicator();
                     } else if (snapshot.connectionState ==
                             ConnectionState.done &&
                         snapshot.hasData) {
-                      //return Text(returnedData.toString());
                       return Column(
                         children: [
                           SizedBox(
-                            height: 50,
+                            height: 80,
                           ),
                           ListTile(
                             iconColor: Colors.blue,
@@ -60,17 +58,46 @@ class _ResultPageState extends State<ResultPage> {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Card(
+                              returnedData['autocorrect'].toString().isNotEmpty
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Container(
+                                        color: Colors.grey[300],
+                                        width: double.infinity,
+                                        height: 50,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                'AutoCorrect: ${returnedData['autocorrect']}',
+                                                style: TextStyle(fontSize: 17),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  : Container(),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
                                 child: Container(
                                   color: Colors.grey[300],
-                                  width: 250,
+                                  width: 230,
                                   height: 50,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
                                         'Deliverability',
-                                        style: TextStyle(fontSize: 19),
+                                        style: TextStyle(fontSize: 18),
                                       ),
                                       SizedBox(
                                         width: 5,
@@ -88,49 +115,107 @@ class _ResultPageState extends State<ResultPage> {
                                   ),
                                 ),
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Valid Format',
-                                    style: TextStyle(fontSize: 19),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  returnedData['is_valid_format']['text'] ==
-                                          'TRUE'
-                                      ? Icon(
-                                          Icons.check,
-                                          color: Colors.blue,
-                                        )
-                                      : Icon(
-                                          Icons.cancel,
-                                          color: Colors.blue,
-                                        )
-                                ],
+                              SizedBox(
+                                height: 20,
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Free Email',
-                                    style: TextStyle(fontSize: 19),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Container(
+                                  color: Colors.grey[300],
+                                  width: 230,
+                                  height: 50,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Valid Format',
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      returnedData['is_valid_format']['text'] ==
+                                              'TRUE'
+                                          ? Icon(
+                                              Icons.check,
+                                              color: Colors.blue,
+                                            )
+                                          : Icon(
+                                              Icons.cancel,
+                                              color: Colors.blue,
+                                            )
+                                    ],
                                   ),
-                                  SizedBox(
-                                    width: 5,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Container(
+                                  color: Colors.grey[300],
+                                  width: 230,
+                                  height: 50,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Free Email',
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      returnedData['is_valid_format']['text'] ==
+                                              'TRUE'
+                                          ? Icon(
+                                              Icons.check,
+                                              color: Colors.blue,
+                                            )
+                                          : Icon(
+                                              Icons.cancel,
+                                              color: Colors.blue,
+                                            )
+                                    ],
                                   ),
-                                  returnedData['is_valid_format']['text'] ==
-                                          'TRUE'
-                                      ? Icon(
-                                          Icons.check,
-                                          color: Colors.blue,
-                                        )
-                                      : Icon(
-                                          Icons.cancel,
-                                          color: Colors.blue,
-                                        )
-                                ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Container(
+                                  color: Colors.grey[300],
+                                  width: 230,
+                                  height: 50,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Quality Score',
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      double.parse(returnedData[
+                                                  'quality_score']) <
+                                              0.5
+                                          ? Text(
+                                              returnedData['quality_score'],
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            )
+                                          : Text(
+                                              returnedData['quality_score'],
+                                              style:
+                                                  TextStyle(color: Colors.blue),
+                                            )
+                                    ],
+                                  ),
+                                ),
                               ),
                             ],
                           ),

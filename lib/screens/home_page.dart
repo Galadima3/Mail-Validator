@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Center(
               child: SizedBox(
-                width: 280,
+                width: 290,
                 child: TextField(
                   controller: emailController,
                   autofocus: true,
